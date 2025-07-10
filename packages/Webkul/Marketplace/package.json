@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.6.5",
+    "laravel-vite-plugin": "^1.2.0",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "vite": "^6.3.3",
+    "vue": "^3.4.7"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.4",
+    "@vee-validate/i18n": "^4.12.4",
+    "@vee-validate/rules": "^4.12.4",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "dotenv": "^16.4.7",
+    "flatpickr": "^4.6.13",
+    "mitt": "^3.0.0",
+    "playwright": "^1.50.1",
+    "vee-validate": "^4.12.4",
+    "vue-cal": "^4.10.2",
+    "vuedraggable": "^4.1.0"
+  }
+}

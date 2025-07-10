@@ -1,0 +1,2 @@
+<?php echo themes()->setBagistoVite(['src/Resources/assets/css/admin.css'], 'marketplace')->toHtml(); ?>
+<?php /**PATH /var/www/html/packages/Webkul/Marketplace/src/Providers/../Resources/views/components/admin/layouts/header/style.blade.php ENDPATH**/ ?>
