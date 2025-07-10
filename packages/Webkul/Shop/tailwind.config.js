@@ -29,7 +29,22 @@ module.exports = {
 
         extend: {
             colors: {
-                navyBlue: "#060C3B",
+                panabay: {
+                    primary: '#f78c1e',
+                    'primary-hover': '#e6780f', // Use quotes for keys with hyphens
+                    background: '#F7F5F2',
+                    text: {
+                        primary: '#2C2C2C',
+                        secondary: '#6E6E6E',
+                        placeholder: '#BDBDBD',
+                    },
+                    border: '#E0E0E0',
+                    green: '#93A92F',
+                    red: '#C4592C',
+                    sand: '#F4E3CD',
+                    disabled: '#D3D3D3',
+                },
+                navyBlue: "#f78c1e",
                 lightOrange: "#F6F2EB",
                 darkGreen: '#40994A',
                 darkBlue: '#0044F2',

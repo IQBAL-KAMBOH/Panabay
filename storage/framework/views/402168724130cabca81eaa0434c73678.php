@@ -17,38 +17,13 @@
         >
             <img
                 src="<?php echo e(core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg')); ?>"
-                width="131"
-                height="29"
+                style="width:60px !important;"
                 alt="<?php echo e(config('app.name')); ?>"
             >
         </a>
 
         <?php echo view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after'); ?>
 
-
-        <?php echo view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before'); ?>
-
-
-        <v-desktop-category>
-            <div class="flex items-center gap-5">
-                <span
-                    class="shimmer h-6 w-20 rounded"
-                    role="presentation"
-                ></span>
-
-                <span
-                    class="shimmer h-6 w-20 rounded"
-                    role="presentation"
-                ></span>
-
-                <span
-                    class="shimmer h-6 w-20 rounded"
-                    role="presentation"
-                ></span>
-            </div>
-        </v-desktop-category>
-
-        <?php echo view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.after'); ?>
 
     </div>
 
@@ -302,8 +277,35 @@
         </div>
     </div>
 </div>
+<div style="max-height: 20px;" class="flex min-h-[38px] max-h-[38px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] max-1180:px-8">
+    <div class="flex items-center gap-x-10 max-[1180px]:gap-x-5">
+        <?php echo view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before'); ?>
 
-<?php if (! $__env->hasRenderedOnce('d241901c-b543-4fff-98f4-a3120cd7769c')): $__env->markAsRenderedOnce('d241901c-b543-4fff-98f4-a3120cd7769c');
+
+        <v-desktop-category>
+            <div class="flex items-center gap-5">
+                <span
+                    class="shimmer h-6 w-20 rounded"
+                    role="presentation"
+                ></span>
+
+                <span
+                    class="shimmer h-6 w-20 rounded"
+                    role="presentation"
+                ></span>
+
+                <span
+                    class="shimmer h-6 w-20 rounded"
+                    role="presentation"
+                ></span>
+            </div>
+        </v-desktop-category>
+
+        <?php echo view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.after'); ?>
+
+    </div>
+</div>
+<?php if (! $__env->hasRenderedOnce('32e0d2a2-747d-4746-b434-fa6943807127')): $__env->markAsRenderedOnce('32e0d2a2-747d-4746-b434-fa6943807127');
 $__env->startPush('scripts'); ?>
     <script
         type="text/x-template"
