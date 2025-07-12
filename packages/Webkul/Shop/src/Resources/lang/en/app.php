@@ -489,7 +489,7 @@ return [
                     ],
 
                     'bottom' => [
-                        'all'           => 'All',
+                        'all'           => 'Departments',
                         'back-button'   => 'Back to Main Menu',
                         'bagisto'       => 'Bagisto',
                         'categories'    => 'Categories',
