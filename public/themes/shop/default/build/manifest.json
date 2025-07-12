@@ -1,12 +1,16 @@
 {
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-F65DyJd8.css",
+    "file": "assets/app-De6bOYb4.css",
     "src": "src/Resources/assets/css/app.css",
     "isEntry": true
   },
   "src/Resources/assets/fonts/bagisto-shop.woff": {
     "file": "assets/bagisto-shop-BHAKyv0r.woff",
     "src": "src/Resources/assets/fonts/bagisto-shop.woff"
+  },
+  "src/Resources/assets/images/apple-touch-icon.png": {
+    "file": "assets/apple-touch-icon-BRPnO4gf.png",
+    "src": "src/Resources/assets/images/apple-touch-icon.png"
   },
   "src/Resources/assets/images/cash-on-delivery.png": {
     "file": "assets/cash-on-delivery-Ck2rBtSq.png",
@@ -20,9 +24,17 @@
     "file": "assets/empty-dwn-product-DYRIKFWL.png",
     "src": "src/Resources/assets/images/empty-dwn-product.png"
   },
+  "src/Resources/assets/images/favicon-96x96.png": {
+    "file": "assets/favicon-96x96-DNsROfFj.png",
+    "src": "src/Resources/assets/images/favicon-96x96.png"
+  },
   "src/Resources/assets/images/favicon.ico": {
-    "file": "assets/favicon-Df9chQdB.ico",
+    "file": "assets/favicon-BJ92dynK.ico",
     "src": "src/Resources/assets/images/favicon.ico"
+  },
+  "src/Resources/assets/images/favicon.svg": {
+    "file": "assets/favicon-yANNKrRU.svg",
+    "src": "src/Resources/assets/images/favicon.svg"
   },
   "src/Resources/assets/images/hero-image.jpg": {
     "file": "assets/hero-image-BlVTwpsv.jpg",
@@ -52,6 +64,14 @@
     "file": "assets/no-address-BHTy4apn.png",
     "src": "src/Resources/assets/images/no-address.png"
   },
+  "src/Resources/assets/images/official_logo.svg": {
+    "file": "assets/official_logo-Bu5iqq5a.svg",
+    "src": "src/Resources/assets/images/official_logo.svg"
+  },
+  "src/Resources/assets/images/official_logo_white.svg": {
+    "file": "assets/official_logo_white-qqLy9GrT.svg",
+    "src": "src/Resources/assets/images/official_logo_white.svg"
+  },
   "src/Resources/assets/images/paypal.png": {
     "file": "assets/paypal-CIu1GKlz.png",
     "src": "src/Resources/assets/images/paypal.png"
@@ -59,6 +79,10 @@
   "src/Resources/assets/images/review.png": {
     "file": "assets/review-ZWqERyaT.png",
     "src": "src/Resources/assets/images/review.png"
+  },
+  "src/Resources/assets/images/site.webmanifest": {
+    "file": "assets/site-DGWt2i2_.webmanifest",
+    "src": "src/Resources/assets/images/site.webmanifest"
   },
   "src/Resources/assets/images/small-product-placeholder.webp": {
     "file": "assets/small-product-placeholder-CMT26fOX.webp",
@@ -76,12 +100,20 @@
     "file": "assets/user-placeholder-C_FiyGd9.png",
     "src": "src/Resources/assets/images/user-placeholder.png"
   },
+  "src/Resources/assets/images/web-app-manifest-192x192.png": {
+    "file": "assets/web-app-manifest-192x192-BVMQF7hd.png",
+    "src": "src/Resources/assets/images/web-app-manifest-192x192.png"
+  },
+  "src/Resources/assets/images/web-app-manifest-512x512.png": {
+    "file": "assets/web-app-manifest-512x512-BURVAduH.png",
+    "src": "src/Resources/assets/images/web-app-manifest-512x512.png"
+  },
   "src/Resources/assets/images/wishlist.png": {
     "file": "assets/wishlist-DPRG46v-.png",
     "src": "src/Resources/assets/images/wishlist.png"
   },
   "src/Resources/assets/js/app.js": {
-    "file": "assets/app-COK2BsHi.js",
+    "file": "assets/app-DRM_2UU_.js",
     "name": "app",
     "src": "src/Resources/assets/js/app.js",
     "isEntry": true,
