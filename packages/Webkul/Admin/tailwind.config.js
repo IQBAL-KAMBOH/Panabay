@@ -26,7 +26,7 @@ module.exports = {
         extend: {
             colors: {
                 darkGreen: '#40994A',
-                darkBlue: '#0044F2',
+                darkBlue: '#f78c1e',
                 darkPink: '#F85156',
             },
 
@@ -36,7 +36,7 @@ module.exports = {
             }
         },
     },
-    
+
     darkMode: 'class',
 
     plugins: [],

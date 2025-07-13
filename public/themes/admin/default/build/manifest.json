@@ -264,13 +264,17 @@
     "isDynamicEntry": true
   },
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-C-rgoRgA.css",
+    "file": "assets/app-CdXORfKl.css",
     "src": "src/Resources/assets/css/app.css",
     "isEntry": true
   },
   "src/Resources/assets/fonts/bagisto-admin.woff": {
     "file": "assets/bagisto-admin-BzOkv6lg.woff",
     "src": "src/Resources/assets/fonts/bagisto-admin.woff"
+  },
+  "src/Resources/assets/images/apple-touch-icon.png": {
+    "file": "assets/apple-touch-icon-BRPnO4gf.png",
+    "src": "src/Resources/assets/images/apple-touch-icon.png"
   },
   "src/Resources/assets/images/average-orders.svg": {
     "file": "assets/average-orders-UpY6pgyW.svg",
@@ -316,9 +320,17 @@
     "file": "assets/error-ClRu8L1K.svg",
     "src": "src/Resources/assets/images/error.svg"
   },
+  "src/Resources/assets/images/favicon-96x96.png": {
+    "file": "assets/favicon-96x96-DNsROfFj.png",
+    "src": "src/Resources/assets/images/favicon-96x96.png"
+  },
   "src/Resources/assets/images/favicon.ico": {
-    "file": "assets/favicon--PZ4cBiP.ico",
+    "file": "assets/favicon-BJ92dynK.ico",
     "src": "src/Resources/assets/images/favicon.ico"
+  },
+  "src/Resources/assets/images/favicon.svg": {
+    "file": "assets/favicon-yANNKrRU.svg",
+    "src": "src/Resources/assets/images/favicon.svg"
   },
   "src/Resources/assets/images/icon-add-product.svg": {
     "file": "assets/icon-add-product-nFt8sucb.svg",
@@ -428,6 +440,10 @@
     "file": "assets/theme-Bwf_p88V.svg",
     "src": "src/Resources/assets/images/settings/theme.svg"
   },
+  "src/Resources/assets/images/site.webmanifest": {
+    "file": "assets/site-DGWt2i2_.webmanifest",
+    "src": "src/Resources/assets/images/site.webmanifest"
+  },
   "src/Resources/assets/images/spinner.svg": {
     "file": "assets/spinner-CkjnFMgn.svg",
     "src": "src/Resources/assets/images/spinner.svg"
@@ -444,8 +460,16 @@
     "file": "assets/unpaid-invoices-BgQgwKF1.svg",
     "src": "src/Resources/assets/images/unpaid-invoices.svg"
   },
+  "src/Resources/assets/images/web-app-manifest-192x192.png": {
+    "file": "assets/web-app-manifest-192x192-BVMQF7hd.png",
+    "src": "src/Resources/assets/images/web-app-manifest-192x192.png"
+  },
+  "src/Resources/assets/images/web-app-manifest-512x512.png": {
+    "file": "assets/web-app-manifest-512x512-BURVAduH.png",
+    "src": "src/Resources/assets/images/web-app-manifest-512x512.png"
+  },
   "src/Resources/assets/js/app.js": {
-    "file": "assets/app-Cys_JxVv.js",
+    "file": "assets/app-CdtzKw8z.js",
     "name": "app",
     "src": "src/Resources/assets/js/app.js",
     "isEntry": true,
