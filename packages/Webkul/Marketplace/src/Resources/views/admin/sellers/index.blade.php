@@ -22,7 +22,7 @@
     </div>
 
     {!! view_render_event('marketplace.admin.sellers.list.before') !!}
-    
+
     <!-- Datagrid -->
     <x-admin::datagrid
         src="{{ route('admin.marketplace.sellers.index') }}"
@@ -30,7 +30,7 @@
         ref="seller_data"
     >
         <!-- Datagrid Header -->
-        @php 
+        @php
             $hasPermission = bouncer()->hasPermission('marketplace.sellers.edit') || bouncer()->hasPermission('marketplace.sellers.delete');
         @endphp
 
@@ -258,12 +258,12 @@
     {!! view_render_event('marketplace.admin.sellers.list.after') !!}
 
     @pushOnce('scripts')
-        <script 
-            type="text/x-template" 
+        <script
+            type="text/x-template"
             id="v-create-sellers-form-template"
-        >   
+        >
             {!! view_render_event('marketplace.admin.sellers.index.add_button.before') !!}
-            
+
             <!-- Create Button -->
             @if (bouncer()->hasPermission('marketplace.sellers.create'))
                 <button
@@ -293,7 +293,7 @@
                         <!-- Modal Content -->
                         <x-slot:content>
                             {!! view_render_event('marketplace.admin.sellers.index.create_form_controls.before') !!}
-                            
+
                             <div class="flex gap-4 max-sm:flex-wrap">
                                 <!-- Name -->
                                 <x-admin::form.control-group class="mb-2.5 w-full">
@@ -464,8 +464,8 @@
                                         </option>
 
                                         @foreach (core()->countries() as $country)
-                                            <option 
-                                                {{ $country->code === config('app.default_country') ? 'selected' : '' }}  
+                                            <option
+                                                {{ $country->code === config('app.default_country') ? 'selected' : '' }}
                                                 value="{{ $country->code }}"
                                             >
                                                 {{ $country->name }}
@@ -492,7 +492,7 @@
                                             :label="trans('marketplace::app.admin.sellers.index.create.state')"
                                             :placeholder="trans('marketplace::app.admin.sellers.index.create.state')"
                                         >
-                                            <option 
+                                            <option
                                                 v-for='(state, index) in countryStates[country]'
                                                 :value="state.code"
                                                 v-text="state.default_name"
@@ -518,7 +518,7 @@
 
                             {!! view_render_event('marketplace.admin.sellers.index.create_form_controls.after') !!}
                         </x-slot:content>
-                        
+
                         <!-- Modal Footer -->
                         <x-slot:footer>
                             <!-- Modal Submission -->

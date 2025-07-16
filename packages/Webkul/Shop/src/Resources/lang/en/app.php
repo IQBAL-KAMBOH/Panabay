@@ -499,7 +499,7 @@ return [
                         'orders'        => 'Orders',
                         'profile'       => 'Profile',
                         'search'        => 'Search',
-                        'search-text'   => 'Search products here',
+                        'search-text'   => 'Discover handmade products, unique African items, and more on Panabay',
                         'sign-in'       => 'Sign In',
                         'sign-up'       => 'Sign Up',
                         'submit'        => 'Submit',
