@@ -45,7 +45,7 @@
                     </p>
 
                     <p
-                        class="inline-block rounded bg-[#FDB600] px-2.5 py-1 text-xs font-medium text-white"
+                        class="inline-block rounded bg-[#FDB600] px-2.5 py-1 text-xs font-medium text-navyBlue"
                         v-else-if="product.is_new" style="background-color:#FDB600;"
                     >
                         @lang('shop::app.components.products.card.new')
@@ -71,7 +71,7 @@
                 {!! view_render_event('bagisto.shop.components.products.card.name.before') !!}
 
                 <!-- Product Name -->
-                <p class="text-sm font-normal text-zinc-900">
+                <p class="text-sm font-normal text-navyBlue">
                     @{{ product.name }}
                 </p>
 
