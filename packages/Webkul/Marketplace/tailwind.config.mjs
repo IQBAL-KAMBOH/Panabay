@@ -33,7 +33,7 @@ export default {
             },
 
             colors: {
-                navyBlue: "#060C3B",
+                navyBlue: "#f78c1e",
                 lightOrange: "#F6F2EB",
             },
 

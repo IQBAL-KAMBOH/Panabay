@@ -40,6 +40,18 @@
     "file": "assets/bagisto-shop-BHAKyv0r.woff",
     "src": "src/Resources/assets/fonts/bagisto-shop.woff"
   },
+  "src/Resources/assets/images/Panabay logo-02.svg": {
+    "file": "assets/Panabay logo-02-BkeJuwt_.svg",
+    "src": "src/Resources/assets/images/Panabay logo-02.svg"
+  },
+  "src/Resources/assets/images/Panabay logo-04.svg": {
+    "file": "assets/Panabay logo-04-ByzaqAO9.svg",
+    "src": "src/Resources/assets/images/Panabay logo-04.svg"
+  },
+  "src/Resources/assets/images/Panabay logo-06.svg": {
+    "file": "assets/Panabay logo-06-DaMdagUM.svg",
+    "src": "src/Resources/assets/images/Panabay logo-06.svg"
+  },
   "src/Resources/assets/images/apple-touch-icon.png": {
     "file": "assets/apple-touch-icon-BRPnO4gf.png",
     "src": "src/Resources/assets/images/apple-touch-icon.png"
@@ -88,8 +100,12 @@
     "file": "assets/large-product-placeholder-B9xoAuKQ.webp",
     "src": "src/Resources/assets/images/large-product-placeholder.webp"
   },
+  "src/Resources/assets/images/logo-s.svg": {
+    "file": "assets/logo-s-CRei64Q_.svg",
+    "src": "src/Resources/assets/images/logo-s.svg"
+  },
   "src/Resources/assets/images/logo.svg": {
-    "file": "assets/logo-CZWQQgOF.svg",
+    "file": "assets/logo-PKh7cnFJ.svg",
     "src": "src/Resources/assets/images/logo.svg"
   },
   "src/Resources/assets/images/medium-product-placeholder.webp": {
