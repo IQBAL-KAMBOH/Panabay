@@ -1,0 +1,45 @@
+/* PANABAY WALMART-STYLE GRID */
+.content-container .static-content-container {
+    display: grid;
+    gap: 20px; /* The space between all the cards */
+    grid-template-columns: repeat(4, 1fr); /* A 4-column grid by default */
+    max-width: 1400px;
+    margin: 20px auto;
+}
+
+/* Target the individual static content blocks */
+.content-container .static-content-container > div {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #F7F5F2; /* Panabay Background Light */
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* You can use these classes in your admin panel HTML to control size */
+.grid-col-span-4 { grid-column: span 4 !important; }
+.grid-col-span-3 { grid-column: span 3 !important; }
+.grid-col-span-2 { grid-column: span 2 !important; }
+.grid-col-span-1 { grid-column: span 1 !important; }
+
+/* Styling for content inside the cards */
+.static-content-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2C2C2C; /* Panabay Text Primary */
+}
+
+.static-content-container .shop-now-link {
+    font-weight: 600;
+    text-decoration: underline;
+    color: #2C2C2C;
+    margin-top: 16px;
+}
+
+.static-content-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

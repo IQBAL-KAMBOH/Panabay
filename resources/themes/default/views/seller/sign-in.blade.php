@@ -22,15 +22,14 @@
         <div class="flex items-center gap-x-14 max-[1180px]:gap-x-9">
             <a
                 href="{{ route('shop.home.index') }}"
-                class="m-[0_auto_20px_auto]"
+                class="m-auto"
                 aria-label="@lang('marketplace::app.seller.login.bagisto')"
             >
-                <img
-                    src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
-                    alt="{{ config('app.name') }}"
-                    width="131"
-                    height="29"
-                >
+                 <img
+                        src="{{ bagisto_asset('images/logo-s.svg') }}"
+                        alt="{{ config('app.name') }}"
+                         width="100"
+                        height="29">
             </a>
         </div>
 
@@ -38,19 +37,19 @@
 
         <!-- Form Container -->
         <div
-            class="m-auto w-full max-w-[870px] rounded-xl border p-16 px-[90px] max-md:px-8 max-md:py-8"
+            class="m-auto w-full max-w-[870px] rounded-xl text-center p-16 px-[90px] max-md:px-8 max-md:py-8"
         >
-            <h1 class="font-dmserif text-4xl max-sm:text-2xl">
+            <h1 class="text-2xl font-semibold text-panabay-text-primary">
                 @lang('marketplace::app.seller.login.page-title')
             </h1>
 
-            <p class="mt-4 text-xl text-[#6E6E6E] max-sm:text-base">
+            <p class="mt-2 text-base text-panabay-text-secondary">
                 @lang('marketplace::app.seller.login.form-login-text')
             </p>
 
             {!! view_render_event('bagisto.seller.sign_in.before') !!}
 
-            <div class="mt-14 rounded max-sm:mt-8">
+            <div class="grid gap-y-6 text-left">
                 <x-shop::form :action="route('seller.session.create')">
                     {!! view_render_event('bagisto.seller.sign_in.form_controls.before') !!}
 
@@ -155,7 +154,7 @@
                     <!-- Submit Button -->
                     <div class="mt-8 flex flex-wrap items-center gap-9">
                         <button
-                            class="primary-button m-0 block w-full max-w-[374px] rounded-2xl px-11 py-4 text-center text-base ltr:ml-0 rtl:mr-0"
+                            class="primary-button  rounded-full py-3.5 m-0 mx-auto block w-full max-w-full rounded-2xl px-11 py-4 text-center text-base max-md:max-w-full max-md:rounded-lg max-md:py-3 max-sm:py-1.5 ltr:ml-0 rtl:mr-0"
                             type="submit"
                         >
                             @lang('marketplace::app.seller.login.button-title')
