@@ -8,20 +8,20 @@
     @section('breadcrumbs')
         <x-marketplace::seller.breadcrumbs name="seller_dashboard" />
     @endSection
- 
+
     <div class="flex flex-col gap-2.5">
         <div class="flex items-center justify-between gap-4 max-sm:flex-wrap max-sm:w-full">
             <p class="text-2xl font-medium">
                 @lang('marketplace::app.seller.dashboard.hi-seller', ['seller_name' => $seller->name])
             </p>
-            
+
             {!! view_render_event('bagisto.seller.dashboard.filters.before') !!}
-            
+
             <!-- Filter Component -->
             <v-dashboard-filters>
                 <x:marketplace::seller.shimmer.dashboard.filter />
             </v-dashboard-filters>
-            
+
             {!! view_render_event('bagisto.seller.dashboard.filters.after') !!}
         </div>
 
@@ -33,27 +33,27 @@
     {!! view_render_event('bagisto.seller.dashboard.profile_score.before') !!}
 
     @if (is_null($seller->parent_id))
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mx-auto mt-6 rounded-lg flex flex-wrap items-center justify-between">
+        <div class=" border-l-4 border-navyBlue p-6 mx-auto mt-6 rounded-lg flex flex-wrap items-center justify-between">
             <!-- Text Content -->
             <div class="space-y-2 w-full sm:w-2/3">
                 <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">
                     @lang('marketplace::app.seller.dashboard.profile-score')
                 </h2>
-                
+
                 <p class="text-sm sm:text-base text-gray-600">
                     @lang('marketplace::app.seller.dashboard.profile-score-desc')
                 </p>
-                
+
                 @if ($seller->profile_score < 100)
                     <a
                         href="{{ route('seller.profile.edit') }}"
-                        class="inline-block text-sm font-medium text-blue-600 hover:underline"
+                        class="inline-block text-sm font-medium text-navyBlue hover:underline"
                     >
                         @lang('marketplace::app.seller.dashboard.complete-profile-link')
                     </a>
                 @endif
             </div>
-        
+
             <!-- Profile Score Circle -->
             <div class="relative w-20 h-20 sm:w-24 sm:h-24 mt-4 sm:mt-0">
                 <svg
@@ -71,7 +71,7 @@
                         cx="18"
                         cy="18"
                     />
-                    
+
                     <!-- Progress Circle -->
                     <circle
                         @class([
@@ -91,7 +91,7 @@
                         cy="18"
                     />
                 </svg>
-        
+
                 <!-- Profile Score Label -->
                 <div class="absolute inset-0 flex items-center justify-center">
                     <span class="text-base sm:text-xl font-bold text-gray-800">
@@ -105,7 +105,7 @@
     {!! view_render_event('bagisto.seller.dashboard.profile_score.after') !!}
 
     {!! view_render_event('bagisto.seller.dashboard.over_all_details.before') !!}
-    
+
     <!-- Over All Details -->
     @include('marketplace::seller.dashboard.over-all-details')
 
@@ -132,7 +132,7 @@
     {!! view_render_event('bagisto.seller.dashboard.total_sale_and_total_visitors.after') !!}
 
     {!! view_render_event('bagisto.seller.dashboard.orders.before') !!}
-    
+
     <!-- Orders Listing -->
     @include('marketplace::seller.dashboard.orders')
 
@@ -202,7 +202,7 @@
                         <option value="">
                             @lang('marketplace::app.seller.dashboard.date-range')
                         </option>
-                        
+
                         @foreach (['today', 'week', 'month', 'year'] as $type)
                             <option value="{{ $type }}">
                                 @lang('marketplace::app.seller.dashboard.'.$type)
@@ -220,7 +220,7 @@
                             v-model="filters.start"
                         >
                     </x-shop::flat-picker.date>
-        
+
                     <!-- End Date -->
                     <x-shop::flat-picker.date class="w-36">
                         <input
@@ -241,7 +241,7 @@
                     return {
                         filters: {
                             start: "{{ $startDate->format('Y-m-d') }}",
-                            
+
                             end: "{{ $endDate->format('Y-m-d') }}",
                         }
                     }
