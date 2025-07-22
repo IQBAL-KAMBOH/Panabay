@@ -14,7 +14,7 @@
             aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')">
             <img
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo-white.svg') }}"
-                width="200"
+                width="120"
 
                 alt="{{ config('app.name') }}">
         </a>
@@ -138,11 +138,16 @@
 
                         <!-- Text Block -->
                         <div class="text-left text-xs">
+                            @auth('customer')
+                            <div class="font-bold"> {{ auth()->guard('customer')->user()->first_name }}</div>
+                            @else
                             <!-- Top line: "Sign In" -->
                             <div>@lang('shop::app.components.layouts.header.desktop.bottom.sign-in')</div>
 
                             <!-- Bottom line: "Account" (bold) -->
                             <div class="font-bold">Account</div>
+                            @endauth
+
                         </div>
                     </div>
                 </x-slot:toggle>
@@ -188,8 +193,8 @@
 
                     <!-- Customers Dropdown -->
                     @auth('customer')
-                    <x-slot:content class="!p-0">
-                        <div class="grid gap-2.5 p-5 pb-0">
+                    <x-slot:content class="">
+                        <div class="grid pb-0 p-4">
                             <p class="font-dmserif text-xl">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.welcome')’
                                 {{ auth()->guard('customer')->user()->first_name }}
@@ -200,26 +205,26 @@
                             </p>
                         </div>
 
-                        <p class="mt-3 w-full border border-zinc-200"></p>
+                        <p class="w-full border border-zinc-200"></p>
 
-                        <div class="mt-2.5 grid gap-1 pb-2.5">
+                        <div class="grid">
                             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.profile_dropdown.links.before') !!}
 
                             <a
-                                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                                class="cursor-pointer px-4 py-1 text-base hover:bg-gray-100"
                                 href="{{ route('shop.customers.account.profile.index') }}">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.profile')
                             </a>
 
                             <a
-                                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                                class="cursor-pointer px-4 py-1 text-base hover:bg-gray-100"
                                 href="{{ route('shop.customers.account.orders.index') }}">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.orders')
                             </a>
 
                             @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
                             <a
-                                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                                class="cursor-pointer px-4 py-1 text-base hover:bg-gray-100"
                                 href="{{ route('shop.customers.account.wishlist.index') }}">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.wishlist')
                             </a>
@@ -233,7 +238,7 @@
                                 id="customerLogout" />
 
                             <a
-                                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                                class="cursor-pointer px-4 py-1 text-base hover:bg-gray-100"
                                 href="{{ route('shop.customer.session.destroy') }}"
                                 onclick="event.preventDefault(); document.getElementById('customerLogout').submit();">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.logout')

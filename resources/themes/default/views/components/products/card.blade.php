@@ -45,8 +45,8 @@
                     </p>
 
                     <p
-                        class="inline-block rounded bg-[#FDB600] px-2.5 py-1 text-xs font-medium text-white"
-                        v-else-if="product.is_new" style="background-color:#FDB600;"
+                        class="inline-block rounded bg-navyBlue px-2.5 py-1 text-xs font-medium text-white"
+                        v-else-if="product.is_new"
                     >
                         @lang('shop::app.components.products.card.new')
                     </p>
@@ -58,12 +58,15 @@
                     This property should contain the URL to the country flag ribbon image.
                     Example: product.country_flag_url = 'path/to/ghana-flag.svg'
                 -->
-                <img
+                <!-- <img
 
                     src="https://cdn.ipwhois.io//flags//gh.svg"
                     alt="Country Flag"
                     class="absolute top-0 rounded-full right-0 h-auto w-[30px]"
-                />
+                /> -->
+            @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
+            <a href="{{ route('shop.customers.account.wishlist.index') }}" class="absolute top-2.5 rounded-full right-0 h-auto w-[30px]"><i class="fa-regular fa-heart text-white text-2xl"></i></a>
+            @endif
             </div>
 
             <!-- Product Information Section -->
