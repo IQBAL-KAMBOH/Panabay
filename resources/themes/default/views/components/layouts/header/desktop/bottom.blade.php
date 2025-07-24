@@ -25,7 +25,7 @@
     <!-- Left-side Actions -->
     <div class="flex shrink-0 items-center gap-x-6">
         <!-- 1. Sell on Panabay -->
-        <a href="#" class="flex items-center gap-x-2 text-white" aria-label="Sell on Panabay.com">
+        <a href="/" class="flex items-center gap-x-2 text-white" aria-label="Sell on Panabay.com">
             <i class="fa-solid fa-store text-xl"></i>
             <span class="icon-store text-2xl"></span>
             <span class="text-sm font-medium">Sell on Panabay.com</span>

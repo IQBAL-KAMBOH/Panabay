@@ -36,7 +36,7 @@
 
                         <p class="grid text-center text-sm font-semibold text-gray-800">
                             @lang('marketplace::app.components.seller.media.images.add-image-btn')
-                            
+
                             <span class="text-xs">
                                 @lang('marketplace::app.components.seller.media.images.allowed-types')
                             </span>
@@ -90,7 +90,7 @@
                     </div>
                 </template>
             </div>
-        </div>  
+        </div>
     </script>
 
     <script type="text/x-template" id="v-media-image-item-template">
@@ -140,7 +140,7 @@
 
             props: {
                 name: {
-                    type: String, 
+                    type: String,
                     default: 'images',
                 },
 

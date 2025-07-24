@@ -53,7 +53,7 @@
                 <h1 class="text-3xl font-semibold leading-[48px] text-gray-900">
                     {{ $seller->shop_title }}
                 </h1>
-                
+
                 <h6 class="text-base font-medium leading-6 text-[#606060]">
                     {{ $seller->full_address }}
                 </h6>
@@ -303,7 +303,7 @@
                                         'flex h-8 w-8 items-center justify-center rounded-full p-2.5 shadow-sm hover:opacity-90 transition-all',
                                         'bg-[#1877F2]' => $social === 'facebook',
                                         'bg-[#1A1A1A]' => $social === 'twitter',
-                                        'bg-[#FFFFFF]' => $social === 'pinterest',  
+                                        'bg-[#FFFFFF]' => $social === 'pinterest',
                                         'bg-[#0A66C2]' => $social === 'linkedin',
                                     ])
                                 >
