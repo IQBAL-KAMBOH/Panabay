@@ -16,7 +16,7 @@
         <x-shop::layouts.account.navigation />
     </div>
 
-    <div class="mx-4 flex-auto max-md:mx-6 max-sm:mx-4 border rounded border-navyBlue shadow p-4">
+    <div class="mx-4 flex-auto max-md:mx-6 max-sm:mx-4 border rounded  shadow p-4">
 
         <!-- Cancel and Reorder buttons -->
         <div class="flex items-center justify-between">

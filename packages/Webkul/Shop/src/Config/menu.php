@@ -3,13 +3,13 @@
 return [
     [
         'key'   => 'account',
-        'name'  => 'shop::app.layouts.my-account',
+        'name'  => '',
         'route' => 'shop.customers.account.profile.index',
         'icon'  => '',
         'sort'  => 1,
     ], [
         'key'   => 'account.profile',
-        'name'  => 'shop::app.layouts.profile',
+        'name'  => 'My Jumia Account',
         'route' => 'shop.customers.account.profile.index',
         'icon'  => 'icon-users',
         'sort'  => 1,
@@ -27,7 +27,7 @@ return [
         'sort'  => 3,
     ], [
         'key'   => 'account.reviews',
-        'name'  => 'shop::app.layouts.reviews',
+        'name'  => 'Pending Reviews',
         'route' => 'shop.customers.account.reviews.index',
         'icon'  => 'icon-star',
         'sort'  => 5,

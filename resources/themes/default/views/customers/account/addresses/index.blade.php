@@ -16,7 +16,7 @@
     </div>
 
     <div class="mx-4 flex-auto">
-        <div class="flex items-center justify-between border rounded border-navyBlue shadow p-4">
+        <div class="flex items-center justify-between border rounded  shadow p-4">
             <div class="flex items-center">
                 <!-- Back Button -->
                 <a
@@ -44,7 +44,7 @@
 
             {!! view_render_event('bagisto.shop.customers.account.addresses.list.before', ['addresses' => $addresses]) !!}
 
-            <div class="mt-[60px] grid grid-cols-2 gap-5 max-1060:grid-cols-[1fr] max-md:mt-5">
+            <div class="mt-[60px] grid grid-cols-1 gap-5 max-1060:grid-cols-[1fr] max-md:mt-5">
                 @foreach ($addresses as $address)
                     <div class="rounded-xl border border-zinc-200 p-5 max-md:flex-wrap">
                         <div class="flex justify-between">
