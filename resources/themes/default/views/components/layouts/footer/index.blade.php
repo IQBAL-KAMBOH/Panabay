@@ -57,36 +57,7 @@ $customization = $themeCustomizationRepository->findOneWhere([
         @endif
         @php
         $footerLinks = [
-        ['title' => 'All Departments', 'url' => '#'],
-        ['title' => 'Store Directory', 'url' => '#'],
-        ['title' => 'Careers', 'url' => '#'],
-        ['title' => 'Our Company', 'url' => '#'],
-        ['title' => 'Sell on Walmart.com', 'url' => '#'],
-        ['title' => 'Help', 'url' => '#'],
-        ['title' => 'Product Recalls', 'url' => '#'],
-        ['title' => 'Accessibility', 'url' => '#'],
-        ['title' => 'Tax Exempt Program', 'url' => '#'],
-        ['title' => 'Get the Walmart App', 'url' => '#'],
-        ['title' => 'Safety Data Sheet', 'url' => '#'],
-        ['title' => 'Terms of Use', 'url' => '#'],
-        ['title' => 'Privacy Notice', 'url' => '#'],
-        ['title' => 'California Supply Chain Act', 'url' => '#'],
-        [
-        'title' => '<svg class="h-4 w-7 inline-block -mt-1 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 16" fill="currentColor" role="img" aria-hidden="true">
-            <path d="M14 0C6.268 0 0 2.238 0 5c0 1.954 3.03 3.65 7.237 4.545a.75.75 0 01.526 1.378C6.185 11.97 3.999 13.682 4 15.53a.5.5 0 00.5.47h19a.5.5 0 00.5-.47c.001-1.848-2.184-3.56-3.763-4.607a.75.75 0 01.526-1.378C24.969 8.65 28 6.954 28 5c0-2.762-6.268-5-14-5z" fill-rule="evenodd" clip-rule="evenodd"></path>
-            <path d="M18.528 10.288l-7.07-7.07a.985.985 0 10-1.393 1.393l7.07 7.07a.985.985 0 001.393-1.393z" fill="#fff"></path>
-            <path d="M10.065 10.288l7.07-7.07a.985.985 0 111.393 1.393l-7.07 7.07a.985.985 0 01-1.393-1.393z" fill="#fff"></path>
-        </svg>Your Privacy Choices',
-        'url' => '#'
-        ],
-        ['title' => 'Notice at Collection', 'url' => '#'],
-        ['title' => 'AdChoices', 'url' => '#'],
-        ['title' => 'Consumer Health Data Privacy Notices', 'url' => '#'],
-        ['title' => 'Brand Shop Directory', 'url' => '#'],
-        ['title' => 'Pharmacy', 'url' => '#'],
-        ['title' => 'Walmart Business', 'url' => '#'],
-        ['title' => '#IYWYK', 'url' => '#'],
-        ['title' => 'Delete Account', 'url' => '#'],
+
         ];
         @endphp
         <!-- For Desktop View -->
@@ -102,7 +73,7 @@ $customization = $themeCustomizationRepository->findOneWhere([
                 });
                 @endphp
 
-                @if(false)
+
                 @foreach ($footerLinkSection as $link)
                 <li>
                     <a href="{{ $link['url'] }}">
@@ -110,19 +81,10 @@ $customization = $themeCustomizationRepository->findOneWhere([
                     </a>
                 </li>
                 @endforeach
-                @endif
+
 
                 @endforeach
-                @foreach ($footerLinks as $link)
-                <li>
-                    <a
-                        href="{{ $link['url'] }}"
-                        class="text-sm font-medium max-sm:text-xs">
-                        {{-- Use {!! !!} to render the SVG icon correctly --}}
-                        {!! $link['title'] !!}
-                    </a>
-                </li>
-                @endforeach
+
             </ul>
             @endif
         </div>
@@ -136,18 +98,7 @@ $customization = $themeCustomizationRepository->findOneWhere([
                 </x-slot>
 
                 <x-slot:content class="flex justify-between !bg-transparent !p-4">
-                     <ul class="grid gap-5 text-sm">
-                     @foreach ($footerLinks as $link)
-                        <li>
-                            <a
-                                href="{{ $link['url'] }}"
-                                class="text-sm font-medium max-sm:text-xs">
-                                {{-- Use {!! !!} to render the SVG icon correctly --}}
-                                {!! $link['title'] !!}
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
+
                     @if ($customization?->options)
                     @foreach ($customization->options as $footerLinkSection)
                     <ul class="grid gap-5 text-sm">
@@ -157,7 +108,7 @@ $customization = $themeCustomizationRepository->findOneWhere([
                         });
                         @endphp
 
-                        @if(false)
+                        @if(true)
                         @foreach ($footerLinkSection as $link)
                         <li>
                             <a

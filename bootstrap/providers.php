@@ -38,5 +38,5 @@ return [
     Webkul\Tax\Providers\TaxServiceProvider::class,
     Webkul\Theme\Providers\ThemeServiceProvider::class,
     Webkul\User\Providers\UserServiceProvider::class,
-    Vendor\KoraPay\Providers\KoraPayServiceProvider::class,
+    // Vendor\KoraPay\Providers\KoraPayServiceProvider::class,
 ];

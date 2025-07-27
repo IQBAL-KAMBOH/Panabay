@@ -41,7 +41,7 @@
                 {!! view_render_event('bagisto.shop.customers.account.profile.edit_button.after') !!}
             </div>
             <!-- Cards Grid -->
-            <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mt-3">
+            <div class="grid  gap-6 md:grid-cols-2 lg:grid-cols-2 mt-3">
                 <!-- Account Details Card -->
                 <div class="rounded-xl border mt-3 border-zinc-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
                     <div class="flex items-center justify-between">
@@ -92,19 +92,29 @@
                             <span class="fa fa-pencil text-2xl text-navyBlue"></span>
                         </a>
                     </div>
+                    @php
+                    $addresses = $customer->addresses;
+
+                    $defaultAddress = $addresses->firstWhere('default_address', true);
+                    if (!$defaultAddress) {
+                        $defaultAddress = $addresses->first();
+                    }
+                    @endphp
                     <div class="mt-6">
                         <p class="mb-2 text-base font-medium text-zinc-600 dark:text-gray-300">Your default shipping address:</p>
-                        @if ($defaultAddress = $customer->default_address)
+                        @if ($defaultAddress)
                         <div class="text-zinc-800 dark:text-white">
-                            <p>{{ $defaultAddress->first_name }} {{ $defaultAddress->last_name }}</p>
+                            <p>{{ $defaultAddress->company_name }}</p>
+
                             <p>{{ $defaultAddress->address }}</p>
                             <p>{{ $defaultAddress->city }}, {{ $defaultAddress->state }} {{ $defaultAddress->postcode }}</p>
-                            <p>{{ $defaultAddress->country_name }}</p>
-                            <p>T: {{ $defaultAddress->phone }}</p>
+                            <p>{{ $defaultAddress->country }}</p>
+                            <p>{{ $defaultAddress->phone }}</p>
                         </div>
                         @else
                         <p class="text-zinc-500 dark:text-gray-400">You have no default shipping address.</p>
                         @endif
+
                     </div>
                 </div>
 
