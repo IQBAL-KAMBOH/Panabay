@@ -38,8 +38,11 @@ class Payment
                     'sort'         => $paymentMethod->getSortOrder(),
                     'image'        => $paymentMethod->getImage(),
                 ];
+            }else{
+                // dd('Payment method '.$paymentMethodConfig['class'].' is not available.');
             }
         }
+
 
         usort($paymentMethods, function ($a, $b) {
             if ($a['sort'] == $b['sort']) {
