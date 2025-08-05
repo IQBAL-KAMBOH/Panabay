@@ -88,7 +88,7 @@
 
                         <!-- Submit Button -->
                         <button
-                            class="cursor-pointer rounded-md border border-blue-700 bg-blue-600 px-3.5 py-1.5 font-semibold text-gray-50"
+                            class="cursor-pointer rounded-md border border-darkBlue bg-darkBlue px-3.5 py-1.5 font-semibold text-gray-50"
                             aria-label="{{ trans('admin::app.users.sessions.submit-btn')}}"
                         >
                             @lang('admin::app.users.sessions.submit-btn')

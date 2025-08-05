@@ -68,14 +68,14 @@
                     <h1 class="text-3xl font-medium leading-[48px]">
                         {{$seller->shop_title}}
                     </h1>
-                    
+
                     <h6 class="text-base font-medium leading-6 text-[#757575]">
                         {{ $seller->full_address }}
                     </h6>
                 </div>
             </div>
         </v-seller-banner-logo>
-        
+
         <!-- Full Panel -->
         <div class="mt-3.5 flex gap-6 max-xl:flex-wrap">
             <!-- Left Section -->
@@ -87,9 +87,9 @@
                     <h3 class="mb-6 text-xl font-medium leading-8 text-navyBlue">
                         @lang('marketplace::app.seller.profile.edit.address.title')
                     </h3>
-                    
+
                     {!! view_render_event('bagisto.seller.profile.edit.shop_information.shop_title.before', ['seller' => $seller]) !!}
-                    
+
                     <!-- Shop Title -->
                     <x-marketplace::seller.form.control-group class="w-full">
                         <x-marketplace::seller.form.control-group.label class="required">
@@ -111,7 +111,7 @@
                     {!! view_render_event('bagisto.seller.profile.edit.shop_information.shop_title.after', ['seller' => $seller]) !!}
 
                     {!! view_render_event('bagisto.seller.profile.edit.shop_information.url.before', ['seller' => $seller]) !!}
-                    
+
                     <!-- Shop URL -->
                     <div class="flex gap-4 max-sm:flex-wrap">
                         <x-marketplace::seller.form.control-group class="w-full">
@@ -313,7 +313,7 @@
                 </div>
 
                 {!! view_render_event('bagisto.seller.profile.edit.meta_information.after', ['seller' => $seller]) !!}
-                
+
                 {!! view_render_event('bagisto.seller.profile.edit.policy.before', ['seller' => $seller]) !!}
 
                 <!-- Policy -->
@@ -395,14 +395,14 @@
             <!-- Right Section -->
             <div class="flex w-[360px] max-w-full flex-col gap-6 max-xl:flex-auto">
                 {!! view_render_event('bagisto.seller.profile.edit.address.before', ['seller' => $seller]) !!}
-                
+
                 <div class="rounded-xl border bg-white p-5">
                     <h3 class="mb-6 text-xl font-medium leading-8 text-navyBlue">
                         @lang('marketplace::app.seller.profile.edit.address.title')
                     </h3>
 
                     {!! view_render_event('bagisto.seller.profile.edit.address.address.before', ['seller' => $seller]) !!}
-                    
+
                     <!-- Addresses -->
                     <x-marketplace::seller.form.control-group.label class="required">
                         @lang('marketplace::app.seller.profile.edit.address.address')
@@ -426,7 +426,7 @@
                     {!! view_render_event('bagisto.seller.profile.edit.address.address.after', ['seller' => $seller]) !!}
 
                     {!! view_render_event('bagisto.seller.profile.edit.address.postcode.before', ['seller' => $seller]) !!}
-                        
+
                     <div class="flex gap-4 max-sm:flex-wrap">
                         <!-- Postcode -->
                         <x-marketplace::seller.form.control-group class="w-full">
@@ -450,7 +450,7 @@
                     {!! view_render_event('bagisto.seller.profile.edit.address.postcode.after', ['seller' => $seller]) !!}
 
                     {!! view_render_event('bagisto.seller.profile.edit.address.city.before', ['seller' => $seller]) !!}
-                    
+
                     <!-- City -->
                     <div class="flex gap-4 max-sm:flex-wrap">
                         <x-marketplace::seller.form.control-group class="w-full">
@@ -497,7 +497,7 @@
                                 <x-marketplace::seller.form.control-group.label class="required">
                                     @lang('marketplace::app.seller.profile.edit.address.state')
                                 </x-marketplace::seller.form.control-group.label>
-    
+
                                 <x-marketplace::seller.form.control-group.control
                                     type="text"
                                     name="state"
@@ -512,7 +512,7 @@
                 {!! view_render_event('bagisto.seller.profile.edit.address.after', ['seller' => $seller]) !!}
 
                 {!! view_render_event('bagisto.seller.profile.edit.social_links.before', ['seller' => $seller]) !!}
-                
+
                 <!-- Social Links -->
                 <div class="rounded-xl border bg-white p-5">
                     <h3 class="mb-6 text-xl font-medium leading-8 text-navyBlue">
@@ -522,7 +522,7 @@
                     @php
                         $socialLinks = ['facebook', 'twitter', 'pinterest', 'linkedin']
                     @endphp
-                    
+
                     @foreach($socialLinks as $socialLink)
                         {!! view_render_event("'bagisto.seller.profile.social_links.{$socialLink}.before", ['seller' => $seller]) !!}
 
@@ -546,7 +546,7 @@
                 </div>
 
                 {!! view_render_event('bagisto.seller.profile.edit.social_links.after', ['seller' => $seller]) !!}
-                
+
                 @if (core()->getConfigData('marketplace.settings.seller.enable_minimum_order_amount'))
                     {!! view_render_event('bagisto.seller.profile.edit.min_order_amount.before', ['seller' => $seller]) !!}
 
@@ -606,7 +606,7 @@
 
                         <x-marketplace::seller.form.control-group.error control-name="google_analytics_id" />
                     </x-marketplace::seller.form.control-group>
-                    
+
                     {!! view_render_event('bagisto.seller.profile.edit.google_analytics.id.after', ['seller' => $seller]) !!}
                 </div>
 
@@ -618,7 +618,7 @@
     </x-marketplace::seller.form>
 
     {!! view_render_event('bagisto.seller.profile.edit.after', ['seller' => $seller]) !!}
-    
+
     @pushOnce('scripts')
         <script type="text/x-template" id="v-seller-country-state-template">
             <!-- Country -->
@@ -642,13 +642,21 @@
                             @lang('marketplace::app.seller.profile.edit.address.select-country')
                         </option>
 
-                        @foreach (core()->countries() as $country)
-                            <option 
-                                {{ $country->code === config('app.default_country') ? 'selected' : '' }}  
+                        <!-- @foreach (core()->countries() as $country)
+                            <option
+                                {{ $country->code === config('app.default_country') ? 'selected' : '' }}
                                 value="{{ $country->code }}"
                             >
                                 {{ $country->name }}
                             </option>
+                        @endforeach -->
+                          @php
+                        $africanCountries = ['NG', 'KE', 'GH', 'ZA', 'EG', 'DZ', 'MA', 'TZ', 'UG']; // Add more if needed
+                        @endphp
+                        @foreach (core()->countries() as $country)
+                        @if (in_array($country->code, $africanCountries))
+                        <option value="{{ $country->code }}">{{ $country->name }}</option>
+                        @endif
                         @endforeach
                     </x-marketplace::seller.form.control-group.control>
 
@@ -679,7 +687,7 @@
                                 @lang('marketplace::app.seller.profile.edit.address.select-state')
                             </option>
 
-                            <option 
+                            <option
                                 v-for='state in currentCountryStates'
                                 :value="state.code"
                                 v-text="state.default_name"
@@ -717,7 +725,7 @@
                         state: @json(old('state') ?: $seller->state),
 
                         currentCountryStates: [],
-                        
+
                         allCountryStates: @json(core()->groupedStatesByCountries()),
                     }
                 },
@@ -768,7 +776,7 @@
                                         </p>
                                         <span class="mp-cancel-icon cursor-pointer text-2xl"></span>
                                     </div>
-    
+
                                     <p class="text-base font-normal leading-5">
                                         @lang('marketplace::app.seller.profile.edit.banner-description')
                                     </p>
@@ -833,7 +841,7 @@
                         width="80"
                         height="80"
                     >
-                    
+
                     <div class="absolute left-[70px] top-[70px] -translate-x-4 -translate-y-5 transform">
                         <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'left' : 'right' }}">
                             <x-slot:toggle>
@@ -851,31 +859,31 @@
                                             </p>
                                             <span class="mp-cancel-icon cursor-pointer text-2xl"></span>
                                         </div>
-        
+
                                         <p class="text-base font-normal leading-5">
                                             @lang('marketplace::app.seller.profile.edit.logo-description')
                                         </p>
                                     </div>
-    
+
                                     <div class="cursor-pointer px-5 hover:bg-gray-100">
                                         <label
                                             for="logo"
                                             class="flex items-center gap-4 py-5"
                                         >
                                             <span class="mp-upload-icon text-2xl"></span>
-    
+
                                             <p class="text-lg font-medium text-[#3D2D2D]">
                                                 @lang('marketplace::app.seller.profile.edit.upload-new-logo')
                                             </p>
                                         </label>
                                     </div>
-    
+
                                     <input
                                         type="hidden"
                                         name="logo[]"
                                         v-if="! uploadedFiles.logoPicked"
                                     />
-    
+
                                     <input
                                         type="file"
                                         class="hidden"
@@ -885,7 +893,7 @@
                                         ref="logo"
                                         @change="setLogo()"
                                     >
-    
+
                                     <div class="cursor-pointer px-5 hover:bg-gray-100">
                                         <button
                                             type="button"
@@ -894,7 +902,7 @@
                                             @click="removeImage('logo')"
                                         >
                                             <span class="mp-delete-icon text-2xl"></span>
-    
+
                                             <p class="text-lg font-medium text-[#3D2D2D]">
                                                 @lang('marketplace::app.seller.profile.edit.delete-logo')
                                             </p>
@@ -904,7 +912,7 @@
                             </x-slot:content>
                         </x-shop::dropdown>
                     </div>
-                </div> 
+                </div>
                 <div class="grid">
                     <h1 class="text-3xl font-medium leading-[48px]">
                         {{$seller->shop_title}}
