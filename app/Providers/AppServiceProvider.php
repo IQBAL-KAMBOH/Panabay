@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\ParallelTesting;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade; // <-- 1. ADD THIS LINE
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,13 @@ class AppServiceProvider extends ServiceProvider
     {
         ParallelTesting::setUpTestDatabase(function (string $database, int $token) {
             Artisan::call('db:seed');
+        });
+          // 2. ADD THE NEW CODE HERE
+        Blade::directive('render', function ($expression) {
+            $parts = explode(', ', $expression, 2);
+            $data = $parts[1] ?? '[]';
+
+            return "<?php echo \Illuminate\Support\Facades\Blade::render({$parts[0]}, {$data}); ?>";
         });
     }
 }

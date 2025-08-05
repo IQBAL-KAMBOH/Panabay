@@ -285,8 +285,12 @@
     "file": "assets/chat-C8fzFjcp.png",
     "src": "src/Resources/assets/images/chat.png"
   },
+  "src/Resources/assets/images/default-banner-ld.webp": {
+    "file": "assets/default-banner-ld-BEhOg9cl.webp",
+    "src": "src/Resources/assets/images/default-banner-ld.webp"
+  },
   "src/Resources/assets/images/default-banner.webp": {
-    "file": "assets/default-banner-BEhOg9cl.webp",
+    "file": "assets/default-banner-BB1ds5u5.webp",
     "src": "src/Resources/assets/images/default-banner.webp"
   },
   "src/Resources/assets/images/default-logo.webp": {
@@ -348,6 +352,10 @@
   "src/Resources/assets/images/icon-options.svg": {
     "file": "assets/icon-options-B9pp5RQf.svg",
     "src": "src/Resources/assets/images/icon-options.svg"
+  },
+  "src/Resources/assets/images/pana_default_store_logo.svg": {
+    "file": "assets/pana_default_store_logo-CRei64Q_.svg",
+    "src": "src/Resources/assets/images/pana_default_store_logo.svg"
   },
   "src/Resources/assets/images/product-placeholders/front.svg": {
     "file": "assets/front-CFI3VfdH.svg",

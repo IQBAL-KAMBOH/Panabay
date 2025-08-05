@@ -143,6 +143,7 @@ return $n;
                     </div>
 
                     <!-- Statistics Bar -->
+                     @if(false)
                     <div class="border-t border-b border-gray-200 py-4">
                         <div class="flex flex-wrap justify-around items-center gap-y-4">
                             <div class="text-center px-4">
@@ -190,6 +191,7 @@ return $n;
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <!-- seller Profile component -->
                     <v-seller-profile>
