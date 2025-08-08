@@ -32,13 +32,21 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-9HftshyI.css",
+    "file": "assets/app-KfaxMV_m.css",
     "src": "src/Resources/assets/css/app.css",
     "isEntry": true
   },
   "src/Resources/assets/fonts/bagisto-shop.woff": {
     "file": "assets/bagisto-shop-BHAKyv0r.woff",
     "src": "src/Resources/assets/fonts/bagisto-shop.woff"
+  },
+  "src/Resources/assets/images/Kora-dark.svg": {
+    "file": "assets/Kora-dark-DcsVWNDM.svg",
+    "src": "src/Resources/assets/images/Kora-dark.svg"
+  },
+  "src/Resources/assets/images/Kora-light.svg": {
+    "file": "assets/Kora-light-BPGL8EGi.svg",
+    "src": "src/Resources/assets/images/Kora-light.svg"
   },
   "src/Resources/assets/images/Panabay logo-02.svg": {
     "file": "assets/Panabay logo-02-BkeJuwt_.svg",

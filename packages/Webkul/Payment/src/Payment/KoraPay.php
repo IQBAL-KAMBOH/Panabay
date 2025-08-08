@@ -10,6 +10,7 @@ class KoraPay extends Payment
 
     public function getRedirectUrl()
     {
+        // return route('korapay.mock.success');
         return route('korapay.redirect');
     }
     public function getPaymentMethodView()
@@ -22,7 +23,7 @@ class KoraPay extends Payment
     {
         $url = $this->getConfigData('image');
 
-        return $url ? Storage::url($url) : bagisto_asset('images/money-transfer.png', 'shop');
+        return $url ? Storage::url($url) : bagisto_asset('images/Kora-dark.svg', 'shop');
     }
 
 

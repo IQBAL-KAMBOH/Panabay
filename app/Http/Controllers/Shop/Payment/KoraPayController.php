@@ -6,51 +6,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Webkul\Checkout\Facades\Cart;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Checkout\Models\Cart as CartModel;
+use Webkul\Sales\Repositories\InvoiceRepository;
+use Webkul\Sales\Transformers\OrderResource;
 
 class KoraPayController extends Controller
 {
-    /**
-     * OrderRepository instance
-     *
-     * @var \Webkul\Sales\Repositories\OrderRepository
-     */
     protected $orderRepository;
-
-    /**
-     * KoraPay API base URL.
-     *
-     * @var string
-     */
+    protected $invoiceRepository;
     protected $apiBaseUrl = 'https://api.korapay.com/merchant/api/v1';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @param  \Webkul\Sales\Repositories\OrderRepository  $orderRepository
-     * @return void
-     */
-    public function __construct(OrderRepository $orderRepository)
-    {
+    public function __construct(
+        OrderRepository $orderRepository,
+        InvoiceRepository $invoiceRepository
+    ) {
         $this->orderRepository = $orderRepository;
+        $this->invoiceRepository = $invoiceRepository;
     }
 
     /**
-     * Redirects to the KoraPay mobile money initiation process.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     * Initialize payment
      */
-    // In App\Http\Controllers\Shop\Payment\KoraPayController.php
-
-    public function redirect()
+    public function redirect($method = 'mobile')
     {
         $cart = Cart::getCart();
         $secretKey = core()->getConfigData('sales.payment_methods.korapay.secret_key');
 
         if (!$secretKey) {
-            session()->flash('error', 'KoraPay credentials are not configured. Please contact support.');
+            session()->flash('error', 'Payment configuration error. Please contact support.');
             return redirect()->route('shop.checkout.cart.index');
         }
 
@@ -62,7 +48,6 @@ class KoraPayController extends Controller
                 'amount' => (float) $cart->grand_total,
                 'currency' => core()->getConfigData('sales.payment_methods.korapay.currency') ?? 'GHS',
                 'reference' => $reference,
-                'description' => 'Payment for Cart #' . $cart->id,
                 'notification_url' => route('korapay.webhook'),
                 'redirect_url' => route('korapay.callback'),
                 'customer' => [
@@ -70,324 +55,269 @@ class KoraPayController extends Controller
                     'name' => $cart->billing_address->first_name . ' ' . $cart->billing_address->last_name,
                 ],
                 'merchant_bears_cost' => (bool) (core()->getConfigData('sales.payment_methods.korapay.merchant_bears_cost') ?? false),
-                'mobile_money' => [
-                    'number' => '254700000000'
-                ],
                 'metadata' => [
                     'cart_id' => $cart->id,
                     'customer_id' => $cart->customer_id,
                 ]
             ];
 
-            // **DEBUGGING STEP: Log the parameters being sent**
-            Log::info('KoraPay Payment Request:', $params);
+            // Add payment method specific parameters
+            // if ($method === 'card') {
+            //     $params['payment_channels'] = ['card'];
+            // }
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $secretKey,
                 'Content-Type' => 'application/json',
-            ])->post($this->apiBaseUrl . '/charges/mobile-money', $params);
-
-            $responseData = $response->json();
-
-            // **DEBUGGING STEP: Log the full response from KoraPay**
-            Log::info('KoraPay Payment Response:', [
-                'status_code' => $response->status(),
-                'body' => $responseData
-            ]);
-
-            if ($response->successful() && isset($responseData['status']) && $responseData['status'] === true) {
-                $transactionData = $responseData['data'];
-                session()->put('korapay_transaction_reference', $transactionData['transaction_reference']);
-
-                return view('shop::checkout.onepage.korapay-mobile', [
-                    'transaction' => $transactionData
-                ]);
-            }
-
-            // Provide a more specific error message if available
-            $error = $responseData['message'] ?? 'Failed to initialize KoraPay payment. Please check the logs for more details.';
-            session()->flash('error', $error);
-            return redirect()->route('shop.checkout.cart.index');
-        } catch (\Exception $e) {
-            Log::error('KoraPay Exception: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString()
-            ]);
-            session()->flash('error', 'Payment error: ' . $e->getMessage());
-            return redirect()->route('shop.checkout.cart.index');
-        }
-    }
-
-    /**
-     * Authorize a payment using an OTP.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-
-    // In App\Http\Controllers\Shop\Payment\KoraPayController.php
-
-    /**
-     * Redirects the user to KoraPay's hosted page for card payment.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function redirectCard()
-    {
-        $cart = Cart::getCart();
-        $secretKey = core()->getConfigData('sales.payment_methods.korapay.secret_key');
-
-        if (!$secretKey) {
-            session()->flash('error', 'KoraPay credentials are not configured. Please contact support.');
-            return redirect()->route('shop.checkout.cart.index');
-        }
-
-        $reference = 'KPAY-' . uniqid();
-
-        // Store reference and cart_id for verification in callback/webhook
-        session()->put('korapay_reference', $reference);
-        session()->put('korapay_cart_id', $cart->id);
-
-        try {
-            // NOTE: The endpoint for initializing a charge that provides a redirect URL might be different.
-            // I am assuming a common endpoint like '/charges/initialize'.
-            // **Please verify this endpoint from the KoraPay Card API documentation.**
-            // A common payload for card payments:
-            $params = [
-                'amount'          => (float) $cart->grand_total,
-                'currency'        => core()->getConfigData('sales.payment_methods.korapay.currency') ?? 'GHS',
-                'reference'       => $reference,
-                'narration'       => 'Payment for Cart #' . $cart->id, // 'narration' is often used instead of 'description'
-                'redirect_url'    => route('korapay.callback'),
-                'notification_url' => route('korapay.webhook'),
-                'customer'        => [
-                    'email' => $cart->billing_address->email,
-                    'name'  => $cart->billing_address->first_name . ' ' . $cart->billing_address->last_name,
-                ],
-                // This key tells KoraPay to include 'card' as a payment option on the hosted page.
-                // The exact key name might be 'channels' or 'payment_methods'. Please check docs.
-                'payment_channels' => ['card'],
-                'metadata' => [
-                    'cart_id'     => $cart->id,
-                    'customer_id' => $cart->customer_id,
+            ])->withOptions([
+                'curl' => [
+                    CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
                 ]
-            ];
-
-            Log::info('KoraPay Card Payment Request:', $params);
-
-            // **IMPORTANT**: Use the correct endpoint for initiating a transaction that returns a checkout URL.
-            // This is a likely candidate, but you must confirm from the docs.
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $secretKey,
-                'Content-Type'  => 'application/json',
             ])->post($this->apiBaseUrl . '/charges/initialize', $params);
 
             $responseData = $response->json();
-            Log::info('KoraPay Card Payment Response:', ['status' => $response->status(), 'body' => $responseData]);
 
-            // A successful response for card payments will contain a redirect URL.
-            if ($response->successful() && isset($responseData['data']['checkout_url'])) {
-                // Store the transaction reference from KoraPay for later verification
-                session()->put('korapay_transaction_reference', $responseData['data']['transaction_reference']);
-
-                // Redirect the user to the secure payment page
-                return redirect()->away($responseData['data']['checkout_url']);
+            if ($response->successful() && $responseData['status'] === true) {
+                session()->put('korapay_transaction_reference', $responseData['data']['reference']);
+                return redirect()->to($responseData['data']['checkout_url']);
             }
 
-            $error = $responseData['message'] ?? 'Failed to initialize KoraPay card payment.';
+            $error = $responseData['message'] ?? 'Payment initialization failed';
             session()->flash('error', $error);
             return redirect()->route('shop.checkout.cart.index');
         } catch (\Exception $e) {
-            Log::error('KoraPay Card Initialization Exception: ' . $e->getMessage());
-            session()->flash('error', 'An unexpected error occurred. Please contact support.');
+            Log::error("KoraPay  Error: " . $e->getMessage());
+            session()->flash('error', 'Payment processing error. Please try again.');
             return redirect()->route('shop.checkout.cart.index');
         }
     }
-    public function authorizePayment(Request $request)
+
+     private function getTransaction($reference)
     {
-        $request->validate(['token' => 'required|string|min:4']);
-
         $secretKey = core()->getConfigData('sales.payment_methods.korapay.secret_key');
-        $transactionReference = session()->get('korapay_transaction_reference');
 
-        if (!$transactionReference) {
-            return response()->json(['status' => 'error', 'message' => 'Session expired. Please start over.'], 400);
+        $maxRetries = 3;
+        $retryDelay = 1000; // milliseconds
+
+        for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
+            try {
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $secretKey,
+                ])->withOptions([
+                    'curl' => [
+                        CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
+                        CURLOPT_TIMEOUT => 30,
+                    ],
+                    'verify' => true, // Ensure SSL verification is enabled
+                ])->get($this->apiBaseUrl . '/charges/' . $reference);
+
+                $responseData = $response->json();
+
+                if ($response->successful() && isset($responseData['status'])) {
+                    return $responseData['status'] === true
+                        ? $responseData['data']
+                        : null;
+                }
+
+            } catch (\Exception $e) {
+                Log::warning("KoraPay Transaction Fetch Attempt {$attempt}/{$maxRetries} failed: " . $e->getMessage());
+
+                // If it's the last attempt, log the full error
+                if ($attempt === $maxRetries) {
+                    Log::error('KoraPay Transaction Fetch Error: ' . $e->getMessage());
+                    return null;
+                }
+
+                // Wait before retrying (in microseconds)
+                usleep($retryDelay * 1000);
+                $retryDelay *= 2; // Exponential backoff
+            }
         }
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $secretKey,
-            'Content-Type' => 'application/json',
-        ])->post($this->apiBaseUrl . '/charges/mobile-money/authorize', [
-            'reference' => $transactionReference,
-            'token' => $request->token,
-        ]);
-
-        $responseData = $response->json();
-
-        if ($response->successful() && isset($responseData['status']) && $responseData['status'] === true) {
-            return response()->json([
-                'status'  => 'success',
-                'message' => $responseData['message'],
-                'data'    => $responseData['data'],
-            ]);
-        }
-
-        return response()->json([
-            'status'  => 'error',
-            'message' => $responseData['message'] ?? 'Invalid OTP or an error occurred.',
-        ], $response->status());
+        return null;
     }
 
     /**
-     * Handles the redirect from KoraPay after a payment attempt.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * Handle payment callback with fallback to webhook data
      */
     public function callback(Request $request)
     {
         $reference = $request->query('reference') ?? session()->get('korapay_transaction_reference');
+        $cartId = session()->get('korapay_cart_id');
 
-        if (!$reference) {
-            session()->flash('error', 'Payment reference not found. Unable to verify status.');
+        if (!$reference || !$cartId) {
+            session()->flash('error', 'Invalid payment session. Please restart checkout.');
             return redirect()->route('shop.checkout.cart.index');
         }
 
+        // First check if order exists (webhook might have created it)
+        if ($order = $this->orderRepository->findOneByField('cart_id', $cartId)) {
+            Cart::deActivateCart($cartId);
+            session()->forget(['korapay_transaction_reference', 'korapay_cart_id']);
+            return redirect()->route('shop.checkout.onepage.success');
+        }
+
         try {
-            if ($this->verifyPayment($reference)) {
-                // The order is created by the webhook. Here, we just confirm to the user.
-                // We find the cart and deactivate it to prevent re-use.
-                $cartId = session()->get('korapay_cart_id');
-                if ($cartId) {
-                    Cart::deActivateCart($cartId);
-                }
+            // Try to get transaction details
+            $transaction = $this->getTransaction($reference);
 
-                // Clear session data
+            if ($transaction && $transaction['status'] === 'success') {
+                $this->processSuccessfulPayment($transaction);
+                Cart::deActivateCart($cartId);
                 session()->forget(['korapay_transaction_reference', 'korapay_cart_id']);
-
                 return redirect()->route('shop.checkout.onepage.success');
             }
 
-            session()->flash('error', 'KoraPay payment failed or was cancelled.');
+            // If we couldn't verify but have a reference, show pending status
+            if ($reference) {
+                session()->flash('info', 'Your payment is being processed. We\'ll notify you when completed.');
+                return redirect()->route('shop.checkout.onepage.success');
+            }
+
+            session()->flash('error', 'Payment not confirmed. Please check your payment status.');
             return redirect()->route('shop.checkout.cart.index');
+
         } catch (\Exception $e) {
-            Log::error('KoraPay Callback Verification Error: ' . $e->getMessage());
-            session()->flash('error', 'An error occurred while verifying your payment. Please contact support.');
+            Log::error('KoraPay Callback Error: ' . $e->getMessage());
+            session()->flash('error', 'Payment verification failed. Contact support for assistance.');
             return redirect()->route('shop.checkout.cart.index');
         }
     }
 
     /**
-     * Handles incoming webhooks from KoraPay.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * Handle payment webhooks
      */
     public function webhook(Request $request)
     {
-        $payload = $request->getContent();
+        // Validate webhook signature
         $signature = $request->header('x-korapay-signature');
-        $webhookSecret = core()->getConfigData('sales.payment_methods.korapay.webhook_secret'); // It's better to use a dedicated webhook secret
-
-        $computedSignature = hash_hmac('sha256', $payload, $webhookSecret);
+        $computedSignature = hash_hmac(
+            'sha256',
+            $request->getContent(),
+            core()->getConfigData('sales.payment_methods.korapay.webhook_secret')
+        );
 
         if (!hash_equals($signature, $computedSignature)) {
-            Log::error('KoraPay Webhook: Invalid signature.');
-            return response()->json(['status' => 'error', 'message' => 'Invalid signature'], 401);
+            Log::error('KoraPay Webhook: Invalid signature');
+            return response()->json(['status' => 'invalid signature'], 401);
         }
 
-        $event = json_decode($payload, true);
-
-        if (isset($event['event']) && $event['event'] === 'charge.success') {
+        $event = $request->json()->all();
+        if ($event['event'] === 'charge.success') {
             $this->processSuccessfulPayment($event['data']);
         }
 
         return response()->json(['status' => 'success']);
     }
 
-    /**
-     * Checks the status of a payment for AJAX polling.
-     *
-     * @param string $reference The transaction reference.
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function paymentStatus($reference)
-    {
-        return response()->json([
-            'status' => $this->verifyPayment($reference) ? 'success' : 'pending'
-        ]);
-    }
 
     /**
-     * Verifies the payment status with KoraPay.
-     *
-     * @param string $reference The transaction reference.
-     * @return bool
-     */
-    private function verifyPayment($reference)
-    {
-        $secretKey = core()->getConfigData('sales.payment_methods.korapay.secret_key');
-
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $secretKey,
-        ])->get($this->apiBaseUrl . '/charges/' . $reference);
-
-        $responseData = $response->json();
-
-        return $response->successful()
-            && isset($responseData['status'], $responseData['data']['status'])
-            && $responseData['status'] === true
-            && $responseData['data']['status'] === 'success';
-    }
-
-    /**
-     * Processes a successful payment notification from a webhook.
-     * This is the single source of truth for creating an order.
-     *
-     * @param array $transaction
-     * @return void
+     * Process successful payments with locking mechanism
      */
     private function processSuccessfulPayment($transaction)
     {
         $cartId = $transaction['metadata']['cart_id'] ?? null;
 
         if (!$cartId) {
-            Log::error('KoraPay Webhook: Cart ID not found in metadata', $transaction);
+            Log::error('KoraPay Webhook: Missing cart ID', $transaction);
             return;
         }
 
-        // Check if an order has already been created for this cart to prevent duplicates.
-        $order = $this->orderRepository->findOneByField('cart_id', $cartId);
-        if ($order) {
-            Log::info('KoraPay Webhook: Order already exists for cart ID: ' . $cartId);
+        // Create a lock for this cart ID to prevent duplicate processing
+        $lock = Cache::lock('kora_order_' . $cartId, 10);
+
+        try {
+            if ($lock->get()) {
+                // Check if order already exists
+                if ($this->orderRepository->findOneByField('cart_id', $cartId)) {
+                    Log::info("KoraPay: Order already exists for cart {$cartId}");
+                    return;
+                }
+
+                $cart = CartModel::find($cartId);
+                if (!$cart) {
+                    Log::error("KoraPay Webhook: Cart not found - {$cartId}");
+                    return;
+                }
+
+                // Create order data
+                $orderData = (new OrderResource($cart))->jsonSerialize();
+
+                // Add payment information
+                $orderData['payment'] = [
+                    'method' => 'korapay',
+                    'additional' => [
+                        'transaction_reference' => $transaction['reference'],
+                        'amount' => $transaction['amount'],
+                        'currency' => $transaction['currency'],
+                    ]
+                ];
+
+                // Create the order
+                $order = $this->orderRepository->create($orderData);
+                Log::info("KoraPay: Order created for cart {$cartId}");
+
+                // Create and pay invoice
+                $this->createPaidInvoice($order, $transaction['reference']);
+
+            }
+        } catch (\Exception $e) {
+            Log::error("KoraPay Order Error - Cart {$cartId}: " . $e->getMessage());
+        } finally {
+            optional($lock)->release();
+        }
+    }
+
+    /**
+     * Create and pay invoice for the order
+     */
+    protected function createPaidInvoice($order, $transactionId)
+    {
+        if (!$order->canInvoice()) {
+            Log::warning("KoraPay: Cannot create invoice for order {$order->id}");
             return;
         }
 
-        $cart = CartModel::find($cartId);
-        if (!$cart) {
-            Log::error('KoraPay Webhook: Cart not found for ID: ' . $cartId);
-            return;
+        try {
+            // Prepare invoice data with items
+            $invoiceData = $this->prepareInvoiceData($order);
+
+            // Add the transaction ID to the main invoice data array
+            $invoiceData['transaction_id'] = $transactionId;
+
+            // Create the invoice with items and transaction ID
+            $invoice = $this->invoiceRepository->create($invoiceData);
+
+            // Set state to paid as the payment is already confirmed by KoraPay
+            $invoice->state = 'paid';
+            $invoice->save();
+
+            // Update order status to processing
+            $this->orderRepository->updateOrderStatus($order, 'processing');
+
+            Log::info("KoraPay: Invoice created (ID: {$invoice->id}) and paid for order {$order->id}");
+
+        } catch (\Exception $e) {
+            Log::error("KoraPay Invoice Error - Order {$order->id}: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Prepares order's invoice data for creation.
+     *
+     * @param  \Webkul\Sales\Models\Order  $order
+     * @return array
+     */
+    protected function prepareInvoiceData($order)
+    {
+        $invoiceData = ['order_id' => $order->id];
+
+        foreach ($order->items as $item) {
+            if ($item->qty_to_invoice > 0) {
+                $invoiceData['invoice']['items'][$item->id] = $item->qty_to_invoice;
+            }
         }
 
-        // Prepare order data from cart
-        $orderData = Cart::prepareDataForOrder();
-
-        // Add payment information to the order
-        $orderData['payment']['method'] = 'korapay';
-        $orderData['payment']['additional'] = [
-            'transaction_reference' => $transaction['reference'],
-            'amount' => $transaction['amount'],
-            'currency' => $transaction['currency'],
-        ];
-
-        // Create the order
-        $order = $this->orderRepository->create($orderData);
-
-        // Deactivate the cart
-        Cart::deActivateCart($cartId);
-
-        Log::info('KoraPay Webhook: Order created successfully.', [
-            'order_id' => $order->id,
-            'transaction_reference' => $transaction['reference']
-        ]);
+        return $invoiceData;
     }
 }

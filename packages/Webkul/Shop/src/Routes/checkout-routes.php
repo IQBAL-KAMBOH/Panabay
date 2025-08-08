@@ -16,3 +16,4 @@ Route::controller(OnepageController::class)->prefix('checkout/onepage')->group(f
 
     Route::get('success', 'success')->name('shop.checkout.onepage.success');
 });
+Route::post('korapay/authorize', 'App\Http\Controllers\Shop\Payment\KoraPayController@authorizePayment')->name('korapay.authorize');

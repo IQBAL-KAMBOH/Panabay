@@ -1,7 +1,7 @@
 <!-- Checkout Login Vue JS Component -->
 <v-checkout-login>
     <div class="flex items-center">
-        <span class="cursor-pointer text-base font-medium text-blue-700">
+        <span class="primary-button text-white font-semibold py-3 px-24 rounded-full text-lg hover:bg-nayBlue-800 transition-colors">
             @lang('shop::app.checkout.login.title')
         </span>
     </div>
@@ -15,7 +15,7 @@
         <div>
             <div class="flex items-center">
                 <span
-                    class="cursor-pointer text-base font-medium text-blue-700"
+                    class="primary-button text-white font-semibold py-3 px-24 rounded-full text-lg hover:bg-nayBlue-800 transition-colors"
                     role="button"
                     @click="$refs.loginModel.open()"
                 >
@@ -111,7 +111,7 @@
     <script type="module">
         app.component('v-checkout-login', {
             template: '#v-checkout-login-template',
-            
+
             data() {
                 return {
                     isStoring: false,

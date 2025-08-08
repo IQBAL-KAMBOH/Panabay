@@ -409,9 +409,10 @@
             </div>
 
             <h2 class="text-xl font-semibold mb-4">Sign in to see your saved items.</h2>
-            <button class="primary-button text-white font-semibold py-3 px-24 rounded-full text-lg hover:bg-nayBlue-800 transition-colors">
-                Sign in
-            </button>
+             @guest('customer')
+                @include('shop::checkout.login')
+            @endguest
+
 
             <hr class="w-80 my-8 border-gray-200">
 

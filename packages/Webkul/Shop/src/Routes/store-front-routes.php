@@ -87,6 +87,9 @@ Route::get('booking-slots/{id}', [BookingProductController::class, 'index'])
 Route::get('/korapay/redirect', [KoraPayController::class, 'redirect'])->name('korapay.redirect');
 Route::post('/korapay/pay-with-card', [KoraPayController::class, 'redirectCard'])->name('korapay.card.redirect');
 Route::get('/korapay/callback', [KoraPayController::class, 'callback'])->name('korapay.callback');
+// In routes/web.php
+
+// This route will be called by the AJAX in our new view file
 
 // Webhook route (typically in routes/web.php)
 Route::post('/korapay/webhook', [KoraPayController::class, 'webhook'])->name('korapay.webhook');
